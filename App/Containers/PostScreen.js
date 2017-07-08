@@ -27,22 +27,15 @@ class PostScreenScreen extends React.Component {
   // Definitions des state de base
   constructor (props) {
     super(props)
-    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
-      // dataSource: ds.cloneWithRows(props.postStore.posts),
       textPost: '',
       modalVisible: false
     }
   }
-  // losque le store est modifier, l'affichage est mis à jour
-  // componentWillReceiveProps (nextProps) {
-  //   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-  //   this.setState({ dataSource: ds.cloneWithRows(nextProps.postStore.posts) })
-  // }
 
   // Function permettant l'ajout de post
   addPost = () => {
-    if(this.props.photoStore.photo || this.state.textPost !== ''){
+    if (this.props.photoStore.photo || this.state.textPost !== '') {
       var d = new Date()
       this.props.addPost({
         text: this.state.textPost,
@@ -51,13 +44,12 @@ class PostScreenScreen extends React.Component {
       })
       this.props.resetPhoto()
       this.setState({textPost: ''})
-    }
-    else {
+    } else {
       Alert.alert(
         'Erreur',
         'Vous n\'avez pas rentré de message',
         [
-          {text: 'OK'},
+          {text: 'OK'}
         ]
       )
     }
@@ -96,9 +88,9 @@ class PostScreenScreen extends React.Component {
     )
   }
 
-  //Fonction pour e render de la partie Ajouts
+  // Fonction pour e render de la partie Ajouts
   renderAjout = () => {
-    return(
+    return (
       <View style={styles.containerAjout}>
         {this.displayPhoto(this.props.photoStore.photo)}
         <TextInput
@@ -120,7 +112,7 @@ class PostScreenScreen extends React.Component {
     )
   }
 
-  //fonction pour l'affichage de des posts
+  // fonction pour l'affichage de des posts
   renderPost = (rowData) => {
     return (
       <View style={styles.postContainer}>

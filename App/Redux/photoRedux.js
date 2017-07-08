@@ -21,7 +21,6 @@ export const INITIAL_STATE = Immutable({
 
 // Add photo
 export const addPhoto = (state, { data }) => {
-  console.log(data)
   return state.merge({
     photo: 'data:image/jpeg;base64,' + data.data
   })
