@@ -27,25 +27,26 @@ class PostScreenScreen extends React.Component {
   // Definitions des state de base
   constructor (props) {
     super(props)
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
-      dataSource: ds.cloneWithRows(props.postStore.posts),
+      // dataSource: ds.cloneWithRows(props.postStore.posts),
       textPost: '',
       modalVisible: false
     }
   }
   // losque le store est modifier, l'affichage est mis à jour
-  componentWillReceiveProps (nextProps) {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    this.setState({ dataSource: ds.cloneWithRows(nextProps.postStore.posts) })
-  }
+  // componentWillReceiveProps (nextProps) {
+  //   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+  //   this.setState({ dataSource: ds.cloneWithRows(nextProps.postStore.posts) })
+  // }
+
   // Function permettant l'ajout de post
   addPost = () => {
     if(this.props.photoStore.photo || this.state.textPost !== ''){
       var d = new Date()
       this.props.addPost({
         text: this.state.textPost,
-        date: d.getDate(),
+        date: d,
         photo: this.props.photoStore.photo
       })
       this.props.resetPhoto()
@@ -126,7 +127,7 @@ class PostScreenScreen extends React.Component {
         {this.displayPhoto(rowData.photo)}
         <Text>{rowData.text}</Text>
         <View style={styles.postContainerDate}>
-          <Text style={styles.textDate} >{moment().startOf(rowData.date).fromNow()}</Text>
+          <Text style={styles.textDate} >{moment(rowData.date).fromNow()}</Text>
         </View>
       </View>
     )
@@ -134,17 +135,17 @@ class PostScreenScreen extends React.Component {
 
   // Affichage
   render () {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     return (
       <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
+        {/* Partie ajout de post */}
+        {this.renderAjout()}
 
-          {/* Partie ajout de post */}
-          {this.renderAjout()}
-
+        <KeyboardAvoidingView>
           {/* Lisview des différents posts */}
           <ListView
             enableEmptySections
-            dataSource={this.state.dataSource}
+            dataSource={ds.cloneWithRows(this.props.postStore.posts)}
           /* Rendu pour chaque post */
             renderRow={(rowData) => this.renderPost(rowData)} />
 

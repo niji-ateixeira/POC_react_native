@@ -35,7 +35,6 @@ export default (rootReducer, rootSaga) => {
 
   // configure persistStore and check reducer version number
   if (ReduxPersist.active) {
-    console.log('test')
     RehydrationServices.updateReducers(store)
   }
 

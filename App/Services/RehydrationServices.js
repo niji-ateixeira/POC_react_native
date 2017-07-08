@@ -7,7 +7,6 @@ import DebugConfig from '../Config/DebugConfig'
 const updateReducers = (store: Object) => {
   const reducerVersion = ReduxPersist.reducerVersion
   const config = ReduxPersist.storeConfig
-  console.log('test')
   const startup = () => store.dispatch(StartupActions.startup())
 
   // Check to ensure latest reducer version
